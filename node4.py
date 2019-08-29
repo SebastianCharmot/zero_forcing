@@ -28,10 +28,9 @@ def generatecombinations():
     print(combs)
     for i in range(len(combs)):
         # print(combs[i])
-        infect(combs[i])
+        infect(combs[i]) #pass into infect the values from combinations that it wants to infect
         for node in uninfected_nodes:
-            node.infected = False
-#pass into infect the values from combinations that it wants to infect
+            node.infected = False #set state back to everything uninfected
 
 def infect(victims):
     operating_nodes = uninfected_nodes
@@ -46,7 +45,21 @@ def infect(victims):
     #pass on list of Node objects with certain nodes infected to function forcing
     return True
 
-def forcing():
+def forcing(graph):
+    for node in graph:
+        count = 0
+        if node.infected == True:
+            if len(node.neighbors) == 0:
+                pass
+            for neighbor in node.neighbors:
+                if neighbor.infected == False:
+                    count += 1
+            if count == 1:
+                for neighbor in node.neighbors:
+                    neighbor.infected = True
+    for node in graph:
+        print(node.id, node.infected)
+
     #run logic of forcing  
     #force until no change then goes to function forced
     return True
@@ -58,12 +71,21 @@ def forced():
 
 if __name__ == '__main__':
     Node1 = Node(False, "1")
-    Node2 = Node(False, "2")
+    Node2 = Node(True, "2")
     Node3 = Node(False, "3")
+    # Node4 = Node(False, "3")
+    # Node5 = Node(False, "3")
 
     Node1.addNeighbor(Node2)
+    Node2.addNeighbor(Node1)
     Node2.addNeighbor(Node3)
+    # Node3.addNeighbor(Node4)
+    # Node4.addNeighbor(Node5)
 
-    generatecombinations()
+    test = [Node1, Node2, Node3]
+    forcing(test)
+
+    # generatecombinations()
     # infect(0)
+
 
