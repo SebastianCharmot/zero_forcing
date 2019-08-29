@@ -47,6 +47,7 @@ def infect(victims):
     return True
 
 def forcing(graph):
+    forced = 0
     for node in graph:
         count = 0
         if node.infected == True:
@@ -58,10 +59,14 @@ def forcing(graph):
             if count == 1:
                 for neighbor in node.neighbors:
                     neighbor.infected = True
+                    forced += 1
                     # forcing(graph)
-    for node in graph:
-        print(node.id, node.infected)
-    print("-----------")
+    if forced == 1:
+        forcing(graph)
+    else: 
+        for node in graph:
+            print(node.id, node.infected)
+        print("-----------")
 
     #run logic of forcing  
     #force until no change then goes to function forced
@@ -82,6 +87,7 @@ if __name__ == '__main__':
     Node1.addNeighbor(Node2)
     Node2.addNeighbor(Node1)
     Node2.addNeighbor(Node3)
+    Node3.addNeighbor(Node2)
     # Node3.addNeighbor(Node4)
     # Node4.addNeighbor(Node5)
 
