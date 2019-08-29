@@ -37,11 +37,13 @@ def infect(victims):
     xpower = len(victims)
     for victim in victims:
         operating_nodes[victim].infected = True
-    for node in operating_nodes:
-        print(node.id, node.infected)
+    # for node in operating_nodes:
+    #     print(node.id, node.infected)
     print(xpower)
     print(victims)
     print("-----------")
+    forcing(operating_nodes)
+
     #pass on list of Node objects with certain nodes infected to function forcing
     return True
 
@@ -57,6 +59,7 @@ def forcing(graph):
             if count == 1:
                 for neighbor in node.neighbors:
                     neighbor.infected = True
+                    # forcing(graph)
     for node in graph:
         print(node.id, node.infected)
 
@@ -82,10 +85,10 @@ if __name__ == '__main__':
     # Node3.addNeighbor(Node4)
     # Node4.addNeighbor(Node5)
 
-    test = [Node1, Node2, Node3]
-    forcing(test)
+    # test = [Node1, Node2, Node3]
+    # forcing(test)
 
-    # generatecombinations()
+    generatecombinations()
     # infect(0)
 
 
