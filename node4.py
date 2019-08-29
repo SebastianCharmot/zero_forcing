@@ -41,7 +41,6 @@ def infect(victims):
     #     print(node.id, node.infected)
     print(xpower)
     print(victims)
-    print("-----------")
     forcing(operating_nodes)
 
     #pass on list of Node objects with certain nodes infected to function forcing
@@ -62,6 +61,7 @@ def forcing(graph):
                     # forcing(graph)
     for node in graph:
         print(node.id, node.infected)
+    print("-----------")
 
     #run logic of forcing  
     #force until no change then goes to function forced
