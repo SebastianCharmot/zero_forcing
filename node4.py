@@ -26,14 +26,17 @@ def generatecombinations():
             combs.append(list(combination))
         r += 1
     print(combs)
-    print(len(combs))
-    print(uninfected_nodes[(combs[0][0])])
+    for i in range(len(combs)):
+        print(combs[i])
     return True
 
-    #create a dictionary or really long list of possible combinations
     #pass into infect the values from combinations
 
-def infect():
+def infect(victims):
+    operating_nodes = uninfected_nodes
+    operating_nodes[number].infected = True
+    for node in operating_nodes:
+        print(node.id, node.infected)
     # xpower = combination.length
     #retreive index of uninfected_node to infect 
     #pass on list of Node objects with certain nodes infected to function forcing
@@ -54,5 +57,9 @@ if __name__ == '__main__':
     Node2 = Node(False, "2")
     Node3 = Node(False, "3")
 
+    Node1.addNeighbor(Node2)
+    Node2.addNeighbor(Node3)
+
     generatecombinations()
+    # infect(0)
 
