@@ -10,6 +10,7 @@ class Node:
         polynomial.append(0)
     def addNeighbor(self, neighborNode):
         self.neighbors.append(neighborNode)
+        neighborNode.neighbors.append(self)
 
 uninfected_nodes = []
 polynomial = []
@@ -25,7 +26,6 @@ def generatecombinations():
         for combination in combinations(possibilities, r):
             combs.append(list(combination))
         r += 1
-    # print(combs)
     for i in range(len(combs)):
         infect(combs[i]) #pass into infect the values from combinations that it wants to infect
         for node in uninfected_nodes:
@@ -79,23 +79,14 @@ if __name__ == '__main__':
     Node9 = Node(False, "9")
 
     Node0.addNeighbor(Node1)
-    Node1.addNeighbor(Node0)
     Node1.addNeighbor(Node2)
-    Node2.addNeighbor(Node1)
     Node2.addNeighbor(Node3)
-    Node3.addNeighbor(Node2)
     Node3.addNeighbor(Node4)
-    Node4.addNeighbor(Node3)
-    Node6.addNeighbor(Node7)
-    Node7.addNeighbor(Node6)
-    Node7.addNeighbor(Node8)
-    Node8.addNeighbor(Node7)
-    Node8.addNeighbor(Node9)
-    Node9.addNeighbor(Node8)
     Node4.addNeighbor(Node5)
-    Node5.addNeighbor(Node4)
     Node5.addNeighbor(Node6)
-    Node6.addNeighbor(Node5)
+    Node6.addNeighbor(Node7)
+    Node7.addNeighbor(Node8)
+    Node8.addNeighbor(Node9)
 
     generatecombinations()
     print(polynomial)
