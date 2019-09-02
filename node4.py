@@ -15,10 +15,13 @@ class Node:
 uninfected_nodes = []
 polynomial = []
 
-def generatecombinations():
+def start_forcing():
+    generate_combinations()
+
+def generate_combinations():
     from itertools import combinations
-    combs = []
-    possibilities = []
+    combs = [] #nested list of combinations of node id's
+    possibilities = [] #list of node id's
     r = 1
     for i in range(len(uninfected_nodes)):
         possibilities.append(i)
@@ -29,7 +32,7 @@ def generatecombinations():
     for i in range(len(combs)):
         infect(combs[i]) #pass into infect the values from combinations that it wants to infect
         for node in uninfected_nodes:
-            node.infected = False #set nodes back to uninfected
+            node.infected = False #set nodes back to uninfected before infecting new nodes
 
 def infect(victims):
     operating_nodes = uninfected_nodes
@@ -40,7 +43,7 @@ def infect(victims):
 
 def forcing(graph, xpower):
     forced = 0 #Keep track of whether or not something was forced when looping through graph
-    for node in graph:
+    for node in graph: #Forcing logic
         count = 0
         if node.infected == True:
             if len(node.neighbors) == 0:
@@ -53,12 +56,11 @@ def forcing(graph, xpower):
                     neighbor.infected = True
                     forced += 1
     if forced >= 1: #If something was forced then we want to do forcing logic again
-        forcing(graph, xpower) #Can potentially be used to see how many forces it takes 
+        forcing(graph, xpower) #Can potentially be used to see how many forces it takes to fully infect a graph
     else: #After going through the entire graph no nodes were forced, so we are done forcing
-        check(graph,xpower)
-    #force until no change then goes to function forced
+        check(graph,xpower) #pass nodes into check function 
 
-def check(postforcing, xpower):
+def check(postforcing, xpower): # determines whether graph was fully forced or not
     unforced = 0
     for node in postforcing:
         if node.infected == False:
@@ -66,7 +68,7 @@ def check(postforcing, xpower):
     if unforced == 0:     #verify all nodes are forced
         polynomial[xpower-1] += 1       #check xpower to see which index of polynomial to add to
 
-if __name__ == '__main__':
+if __name__ == '__main__': #Example shown is a graph of 10 nodes connected in a straight line
     Node0 = Node(False, "0")
     Node1 = Node(False, "1")
     Node2 = Node(False, "2")
@@ -88,6 +90,6 @@ if __name__ == '__main__':
     Node7.addNeighbor(Node8)
     Node8.addNeighbor(Node9)
 
-    generatecombinations()
+    start_forcing()
     print(polynomial)
 
